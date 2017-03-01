@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/jquery.fullpage.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <style>
+        body, html, ul, li {
+            padding: 0;
+            margin: 0;
+            font-family: 'Microsoft JhengHei Light', serif;
+        }
+
+        .page1 {
+            background-color: moccasin;
+        }
+
+        .page2 {
+            background-color: aqua;
+
+        }
+
+        .page3 {
+            background-color: blueviolet;
+
+        }
+
+        .page4 {
+            background-color: cadetblue;
+        }
+
+        .page5 {
+            background-color: darkgoldenrod;
+        }
+
+        div[class*=page] {
+            text-align: center;
+            font-size: 40px;
+        }
+
+        .link {
+            position: absolute;
+            z-index: 10;
+            top: 10px;
+            left: 10px;
+        }
+
+        .link ul {
+            list-style: none;
+        }
+
+        .link ul li {
+            float: left;
+            margin-right: 10px;
+            padding: 5px 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+        }
+
+        .link ul li.active {
+            background-color: rgba(100, 100, 255, 0.8);
+        }
+
+        .link a {
+            color: black;
+            text-decoration: none;
+            font-weight: normal;
+            font-size: 15px;
+        }
+
+        .block1-left {
+            width: 300px;
+            height: 300px;
+            font-size: 40px;
+            line-height: 300px;
+            display: none;
+            background-color: aquamarine;
+            animation-duration: 0.8s;
+        }
+
+        .block1-right {
+            width: 300px;
+            height: 300px;
+            font-size: 40px;
+            line-height: 300px;
+            display: none;
+            background-color: crimson;
+            animation-duration: 0.8s;
+        }
+
+        .block2 {
+            width: 300px;
+            height: 300px;
+            background-color: royalblue;
+            margin: auto;
+            line-height: 300px;
+            display: none;
+        }
+    </style>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/jquery.fullpage.min.js"></script>
+</head>
+<body>
+<div class="link">
+    <ul>
+        <li><a href="#page1">page1</a></li>
+        <li><a href="#page2">page2</a></li>
+        <li><a href="#page3">page3</a></li>
+        <li><a href="#page4">page4</a></li>
+        <li><a href="#page5">page5</a></li>
+    </ul>
+</div>
+<div id="fullpage">
+    <div class="section page1" data-anchor="page1">
+        <div style="font-size: 0">
+            <div class="animated block1-left">page1-left</div>
+            <div class="animated block1-right">page1-right</div>
+        </div>
+    </div>
+    <div class="section page2" data-anchor="page2">
+        <div>
+            <div class="animated block2">
+                page2
+            </div>
+        </div>
+    </div>
+    <div class="section page3" data-anchor="page3"><p>Page3</p></div>
+    <div class="section page4" data-anchor="page4"><p>Page4</p></div>
+    <div class="section page5" data-anchor="page5"><p>Page5</p></div>
+</div>
+<script>
+    $(document).ready(function () {
+        let links = $('.link').find('li');
+        $('#fullpage').fullpage(
+            {
+                afterLoad: function (anchorLink, index) {
+                    if (index === 1) {
+                        $('.block1-left').css('display', 'inline-block').addClass('slideInLeft');
+                        $('.block1-right').css('display', 'inline-block').addClass('slideInRight');
+                    }
+                    if (index === 2) {
+                        $('.block2').css({display: 'block',}).addClass('zoomIn');
+                    }
+                    links.each(function (index, element) {
+                        let $li = $(element);
+                        if ($li.find('a').attr('href') === '#' + anchorLink) {
+                            $li.addClass('active');
+                        } else {
+                            $li.removeClass('active');
+                        }
+                    });
+                },
+
+            }
+        );
+    });
+</script>
+</body>
+</html>
